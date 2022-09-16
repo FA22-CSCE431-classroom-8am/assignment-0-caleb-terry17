@@ -7,11 +7,11 @@ RSpec.describe 'Creating a book', type: :feature do
     published = Date.new(2022, 9, 15)
     price = 19.99
 
-    # 1: title should show up on books page
+    # 1
     scenario 'valid inputs - title on directory page' do
         visit new_book_path
         fill_in 'Title', with: title
-        fill_in 'Author', with: subject
+        fill_in 'Author', with: author
         fill_in 'Published', with: published
         fill_in 'Price', with: price
         click_on 'Create Book'
@@ -19,53 +19,53 @@ RSpec.describe 'Creating a book', type: :feature do
         expect(page).to have_content(title)
     end
 
-    # 2: title should show up on book 2 page (since it's the second book inserted in test)
+    # 2
     scenario 'valid inputs - title' do
         visit new_book_path
         fill_in 'Title', with: title
-        fill_in 'Author', with: subject
+        fill_in 'Author', with: author
         fill_in 'Published', with: published
         fill_in 'Price', with: price
         click_on 'Create Book'
-        visit books_url('2')
+        visit book_url(Book.last.id)
         expect(page).to have_content(title)
     end
 
-    # 3: author should show up on book 3 page (since it's the third book inserted in test)
+    # 3
     scenario 'valid inputs - author' do
         visit new_book_path
         fill_in 'Title', with: title
-        fill_in 'Author', with: subject
+        fill_in 'Author', with: author
         fill_in 'Published', with: published
         fill_in 'Price', with: price
         click_on 'Create Book'
-        visit books_url('3')
+        visit book_url(Book.last.id)
         expect(page).to have_content(author)
     end
 
-    # 4: published should show up on book 4 page (since it's the fourth book inserted in test)
+    # 4
     scenario 'valid inputs - published' do
         visit new_book_path
         fill_in 'Title', with: title
-        fill_in 'Author', with: subject
+        fill_in 'Author', with: author
         fill_in 'Published', with: published
         fill_in 'Price', with: price
         click_on 'Create Book'
-        visit books_url('4')
-        expect(page).to have_content(date.year)
-        expect(page).to have_content(date.month)
-        expect(page).to have_content(date.day)
+        visit book_url(Book.last.id)
+        expect(page).to have_content(published.year)
+        expect(page).to have_content(published.month)
+        expect(page).to have_content(published.day)
     end
 
-    # 5: author should show up on book 5 page (since it's the fifth book inserted in test)
+    # 5
     scenario 'valid inputs - price' do
         visit new_book_path
         fill_in 'Title', with: title
-        fill_in 'Author', with: subject
+        fill_in 'Author', with: author
         fill_in 'Published', with: published
         fill_in 'Price', with: price
         click_on 'Create Book'
-        visit books_url('5')
+        visit book_url(Book.last.id)
         expect(page).to have_content(price)
     end
 end
